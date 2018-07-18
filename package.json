@@ -1,0 +1,14 @@
+{
+  "name": "back-end-project-week",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/KryoKorpz/back-end-project-week.git",
+  "author": "<jesse.reichel@live.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "engines": {
+    "node": "8.11.3"
+  }
+}
