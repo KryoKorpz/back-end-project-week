@@ -25,5 +25,5 @@ server.get('/', (req, res) =>{
 })
 
 server.listen(port, () => {
-    console.log('You did it')
+    console.log(`You did it on ${port}`)
 })
