@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-const Note = require('./server/Note')
-const options = require('./options')
+// const Note = require('./server/Note')
+// const options = require('./options')
 
 // --- Variables ---
 const port = process.env.PORT || 5000;
