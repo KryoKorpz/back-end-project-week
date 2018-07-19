@@ -15,7 +15,7 @@ const notFound = 404;
 const server = express();
 server.use(express.json());
 
-mongoose.connect('mongodb://ds129183.mlab.com:29183/lambdanotes', options)
+mongoose.connect('mongodb://ds129183.mlab.com:29183/lambdanotes', {user:'admin', pass:'admin1!@#', useNewUrlParser: true })
     .then(() => {
         console.log('connected to Mlab')
         server.listen(port, () => {
