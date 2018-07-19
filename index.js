@@ -1,19 +1,14 @@
-const express = require('express');
 const mongoose = require('mongoose');
+const express = require('express')
 
-const Note = require('./server/Note')
-// const options = require('./options')
+const setupRoutes = require('./server/server');
+const setupMiddleware = require('./server/middleware');
 
-// --- Variables ---
 const port = process.env.PORT || 5000;
-const success = 200;
-const created = 201;
-const deleted = 204;
-const serverError = 500;
-const notFound = 404;
 
 const server = express();
-server.use(express.json());
+setupMiddleware(server);
+setupRoutes(server);
 
 mongoose.connect('mongodb://ds129183.mlab.com:29183/lambdanotes', {user:'admin', pass:'admin1!@#', useNewUrlParser: true })
     .then(() => {
@@ -25,29 +20,3 @@ mongoose.connect('mongodb://ds129183.mlab.com:29183/lambdanotes', {user:'admin',
     .catch((error) => {
         console.log(error)
     })
-
-server.get('/', (req, res) =>{
-    res.status(200).json('Hi World, Im here')
-})
-
-server.post('/notes', (req, res) => {
-    const newNote = new Note(req.body)
-    .save()
-    .then((newNote) => {
-        res.status(created).json(newNote)
-    })
-    .catch((error) => {
-        res.status(serverError).json(error)
-    })
-})
-
-// server.get('/notes', (req, res) => {
-//     Note
-//     .find()
-//     .then((notes) => {
-//         res.status(success).json(notes)
-//     })
-//     .catch((error) => {
-//         res.status(serverError).json(error)
-//     })
-// })
