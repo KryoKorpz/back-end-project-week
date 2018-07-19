@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-// const Note = require('./server/Note')
+const Note = require('./server/Note')
 // const options = require('./options')
 
 // --- Variables ---
@@ -30,16 +30,16 @@ server.get('/', (req, res) =>{
     res.status(200).json('Hi World, Im here')
 })
 
-// server.post('/notes', (req, res) => {
-//     const newNote = new Note(req.body)
-//     .save()
-//     .then((newNote) => {
-//         res.status(created).json(newNote)
-//     })
-//     .catch((error) => {
-//         res.status(serverError).json(error)
-//     })
-// })
+server.post('/notes', (req, res) => {
+    const newNote = new Note(req.body)
+    .save()
+    .then((newNote) => {
+        res.status(created).json(newNote)
+    })
+    .catch((error) => {
+        res.status(serverError).json(error)
+    })
+})
 
 // server.get('/notes', (req, res) => {
 //     Note
