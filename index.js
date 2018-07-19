@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const Note = require('./server/Note')
-const options = require('/options')
+const options = require('./options')
 // --- Variables ---
 const port = process.env.PORT || 5000;
 const success = 200;
@@ -13,6 +13,7 @@ const notFound = 404;
 
 const server = express();
 server.use(express.json());
+console.log(options)
 
 mongoose.connect('mongodb://ds129183.mlab.com:29183/lambdanotes', options)
     .then(() => {
