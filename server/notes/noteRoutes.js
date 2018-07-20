@@ -7,7 +7,7 @@ const notFound = 404;
 
 Note = require('./Note')
 
-router.post('/notes', (req, res) => {
+router.post('/', (req, res) => {
     const newNote = new Note(req.body)
     .save()
     .then((newNote) => {
@@ -18,7 +18,7 @@ router.post('/notes', (req, res) => {
     })
 })
 
-router.get('/notes', (req, res) => {
+router.get('/', (req, res) => {
     Note
     .find()
     .then((notes) => {
@@ -28,5 +28,9 @@ router.get('/notes', (req, res) => {
         res.status(serverError).json(error)
     })
 })
+/* 
+single note route by id
+user notes by registered user
+*/
 
 module.exports = router;
