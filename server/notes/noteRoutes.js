@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const ObjectId = require('mongodb').ObjectID
 const success = 200;
 const created = 201;
 const deleted = 204;
@@ -28,8 +29,21 @@ router.get('/', (req, res) => {
         res.status(serverError).json(error)
     })
 })
+
+router.get('/:id', (req, res) => {
+    const id = req.params.id
+    Note
+    .findById(ObjectId(id))
+    .then((note) => {
+        res.status(success).json(note)
+    })
+    .catch((error) => {
+        res.status(serverError).json(error)
+    })
+})
 /* 
-single note route by id
+edit single note by id
+delete single note by id
 user notes by registered user
 */
 
