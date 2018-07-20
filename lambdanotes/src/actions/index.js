@@ -6,8 +6,11 @@ export const CREATE_NOTE = 'CREATE_NOTE';
 export const UPDATE_NOTE = 'UPDATE_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
 export const ERROR = 'ERROR';
+export const LOADING = 'LOADING';
+export const HIDE_LOADING = 'HIDE_LOADING';
 
-export const getNotes = () => {
+export const getNotes = () => (dispatch) => {
+    dispatch({ type: LOADING })
     return (dispatch) => {
         axios.get(`https://fathomless-bastion-61109.herokuapp.com/notes`)
         .then((response) => {
@@ -15,6 +18,7 @@ export const getNotes = () => {
                 type: GET_NOTES,
                 payload: response.data
             })
+            dispatch({ type: HIDE_LOADING })
         })
         .catch((error) => {
             console.log(error)

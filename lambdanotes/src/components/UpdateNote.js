@@ -3,7 +3,7 @@
   import { connect } from 'react-redux';
   import { Link, NavLink } from 'react-router-dom';
   
-  import { updateNote} from '../actions';
+  import { updateNote } from '../actions';
   
   
   class UpdateNote extends Component {
