@@ -37,7 +37,7 @@ export const getNote = (id) => {
 }
 export const createNote = (note) => {
     return (dispatch) => {
-        axios.post('http://localhost:2005/notes', note)
+        axios.post(`https://fathomless-bastion-61109.herokuapp.com/notes`, note)
         .then((response) => {
             dispatch({
                 type : CREATE_NOTE,
@@ -51,7 +51,7 @@ export const createNote = (note) => {
 }
 export const updateNote = (note, id) => {
     return (dispatch) => {
-        axios.put(`http://localhost:2005/notes/${id}`, note)
+        axios.put(`https://fathomless-bastion-61109.herokuapp.com/notes/update/${id}`, note)
         .then((response) => {
             dispatch({
                 type : UPDATE_NOTE,
@@ -65,7 +65,7 @@ export const updateNote = (note, id) => {
 }
 export const deleteNote = (id) => {
     return (dispatch) => {
-        axios.delete(`http://localhost:2005/notes/${id}`)
+        axios.delete(`https://fathomless-bastion-61109.herokuapp.com/notes/delete/${id}`)
         .then((response) => {
             dispatch({
                 type : DELETE_NOTE,

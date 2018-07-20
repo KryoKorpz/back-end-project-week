@@ -41,9 +41,32 @@ router.get('/:id', (req, res) => {
         res.status(serverError).json(error)
     })
 })
+
+router.delete('/delete/:id', (req, res) => {
+    const id = req.params.id
+    Note
+    .findByIdAndDelete(ObjectId(id))
+    .then(() => {
+        res.status(deleted).json()
+    })
+    .catch((error) => {
+        res.status(serverError).json(error)
+    })
+})
+
+router.put('/update/:id', (req, res) => {
+    const id = req.params.id
+    const noteUpdate = req.body
+    Note
+    .findByIdAndUpdate(ObjectId(id), noteUpdate, {new:true})
+    .then((noteUpdate) => {
+        res.status(success).json(noteUpdate)
+    })
+    .catch((error) => {
+        res.status(serverError).json(error)
+    })
+})
 /* 
-edit single note by id
-delete single note by id
 user notes by registered user
 */
 
