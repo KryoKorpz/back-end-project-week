@@ -8,6 +8,8 @@ import Notes from './Notes';
 import Note from './Note';
 import CreateNote from './CreateNote';
 import UpdateNote  from './UpdateNote';
+import SignUp from './SignUp';
+import Login from './Login'
 
 import '../css/App.css';
 
@@ -21,6 +23,8 @@ class App extends Component {
         <div className='home'>
               <div className='home-nav'>
                 <h1 className='home-nav-banner'> Lambda Notes </h1>
+                <NavLink to='/register'><Button color="primary" className='home-nav-link'>Sign Up</Button></NavLink>
+                <NavLink to='/login'><Button color="primary" className='home-nav-link'>Login</Button></NavLink>
                 <NavLink to='/'><Button color="info" className='home-nav-link'>View Your Notes</Button></NavLink>
                 <NavLink to='/create'><Button color="info" className='home-nav-link'>+ Create New Note</Button></NavLink>
               </div>
@@ -29,6 +33,9 @@ class App extends Component {
                 <Route path='/notes/:id' component={ Note } />
                 <Route path='/create' component={ CreateNote } />
                 <Route exact path='/update/:id' component={ UpdateNote } />
+                <Route path='/register' component={ SignUp } />
+                <Route path='/login' component={ Login } />
+
               </div> 
         </div>
       </Router>

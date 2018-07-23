@@ -1,5 +1,5 @@
 const noteRoutes = require('./notes/noteRoutes');
-const userRoutes = require('./users/userRoutes')
+const userRoutes = require('./users/userRoutes');
 
 module.exports = function(server) {
     server.get('/', (req, res) =>{

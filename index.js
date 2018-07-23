@@ -10,7 +10,8 @@ const server = express();
 setupMiddleware(server);
 setupRoutes(server);
 
-mongoose.connect('mongodb://ds129183.mlab.com:29183/lambdanotes', {user:'admin', pass:'admin1!@#', useNewUrlParser: true })
+// mongoose.connect('mongodb://ds129183.mlab.com:29183/lambdanotes', {user:'admin', pass:'admin1!@#', useNewUrlParser: true })
+mongoose.connect(`mongodb://localhost:27017/backend`, { useNewUrlParser: true } )
     .then(() => {
         console.log('connected to Mlab')
         server.listen(port, () => {

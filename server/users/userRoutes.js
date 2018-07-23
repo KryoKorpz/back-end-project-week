@@ -6,6 +6,7 @@ const serverError = 500;
 const notFound = 404;
 
 User = require('./User')
+const compareUserPW = require('./comparePW');
 
 router.post('/register', (req, res) => {
     const newUser = new User(req.body)
@@ -18,17 +19,28 @@ router.post('/register', (req, res) => {
     })
 })
 
-router.post('/login', (req, res) => {
-    user = req.body
-    User
-    .findOne()
-    .then((user) => {
-        res.status(success).json(user)
-    })
-    .catch((error) => {
-        res.status(serverError).json(error)
-    })
-})
+// router.post('/login',  (req, res) => {
+//     user = req.body.username
+//     password = req.body.password
+//     User
+//     .findOne()
+//     .then((user) => {
+//         res.status(success).json(user)
+//     })
+//     .catch((error) => {
+//         res.status(serverError).json(error)
+//     })
+// })
+
+router.post('/login', compareUserPW, (req, res) => {
+    if (!req.username) {
+      return res.status(403).json({
+        error: 'no username check your comparePW middleware'
+      });
+    } else {
+        return res.status(success).json({msg:Success})
+    }
+});
 
 router.get('/', (req, res) => {
     User

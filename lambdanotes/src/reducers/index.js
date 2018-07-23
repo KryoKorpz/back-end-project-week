@@ -1,4 +1,4 @@
-import { GET_NOTES, GET_NOTE, CREATE_NOTE, UPDATE_NOTE, DELETE_NOTE, ERROR, LOADING, HIDE_LOADING } from '../actions'
+import { GET_NOTES, GET_NOTE, CREATE_NOTE, UPDATE_NOTE, DELETE_NOTE, ERROR, LOADING, HIDE_LOADING, SIGNUP, LOGIN } from '../actions'
 
 const initialState = {
     gettingNotes: false,
@@ -12,6 +12,7 @@ const initialState = {
     error: null,
     note: [],
     notes: [],
+    user: [],
 
 }
 
@@ -28,6 +29,10 @@ const rootReducer = ( intialState, action) => {
             return Object.assign({}, intialState, { note: action.payload })
         case( DELETE_NOTE ):
             return Object.assign({}, intialState, { notes: action.payload })
+        case( SIGNUP ):
+            return Object.assign({}, initialState, { user: action.payload})
+        case( LOGIN ):
+            return Object.assign({}, initialState, { user: action.payload})
         case( LOADING ):
             return ({ ...intialState,  loading: true })
         case( HIDE_LOADING ):
