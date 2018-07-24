@@ -13,34 +13,17 @@ export const LOGIN = 'LOGIN';
 
 const herokuURL = `https://fathomless-bastion-61109.herokuapp.com`;
 
-export const getNotes = () => {
-    return (dispatch) => {
-        axios.get(`http://localhost:5000/notes`)
-        .then((response) => {
-            dispatch({
-                type: GET_NOTES,
-                payload: response.data
-            })
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+export const getNotes = () => async dispatch => {
+    try {
+        dispatch({ type: LOADING })
+        const {data} = await axios.get(`http://localhost:5000/notes`)
+        dispatch({ type: GET_NOTES, payload: data })
+        dispatch({ type: HIDE_LOADING })
+    } catch (error) {
+        dispatch({ type: ERROR, error})
     }
 }
-export const getNote = (id) => {
-    return (dispatch) => {
-        axios.get(`http://localhost:5000/notes/${id}`)
-        .then((response) => {
-            dispatch({
-                type: GET_NOTE,
-                payload: response.data
-            })
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-    }
-}
+
 export const createNote = (note) => {
     return (dispatch) => {
         axios.post(`http://localhost:5000/notes`, note)
@@ -58,24 +41,25 @@ export const createNote = (note) => {
 export const updateNote = (note, id) => {
     return (dispatch) => {
         axios.put(`http://localhost:5000/notes/update/${id}`, note)
-        .then((response) => {
+        .then(() => {
             dispatch({
                 type : UPDATE_NOTE,
-                payload: response.data
             })
+            dispatch(getNotes())
         })
         .catch((error) => {
             console.log(error)
         })
     }
-}
+} 
+
+
 export const deleteNote = (id) => {
     return (dispatch) => {
         axios.delete(`http://localhost:5000/notes/delete/${id}`)
         .then((response) => {
             dispatch({
                 type : DELETE_NOTE,
-                payload: response.data.notes
             })
         })
         .catch((error) => {
@@ -97,9 +81,9 @@ export const signUp = (user) => {
         })
     }
 }
-export const login = () => {
+export const login = (user) => {
     return (dispatch) => {
-        axios.put(`http://localhost:5000/users/login`)
+        axios.post(`http://localhost:5000/users/login`, user)
         .then((response) => {
             dispatch({
                 type : LOGIN,

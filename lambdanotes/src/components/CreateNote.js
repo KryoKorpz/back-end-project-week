@@ -24,7 +24,8 @@ class CreateNote extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.createNote(this.state);
-    this.setState({ title: '', body: ''});
+    this.setState({ title: '', body: ''});    
+    this.props.history.push('/')
   }
 
   render() {

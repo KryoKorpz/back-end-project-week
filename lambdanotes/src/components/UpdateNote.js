@@ -9,9 +9,9 @@
   class UpdateNote extends Component {
     constructor() {
       super()
-      this.state={
+      this.state= {
         title: '',
-        body: '',
+        body: ''
       }
     }
   
@@ -20,33 +20,26 @@
     }
   
     handleUpdate = (event) => {
-      const id = this.props.match.params.id
+      const id = this.props.location.id
+      console.log('id', id)
       this.props.updateNote(this.state, id);
       this.setState({ title: '', body: ''});
-      // this.props.history.push('/')
+      this.props.history.push('/')
     }
     render() {
-      console.log()
         return (
             <div>
               <Form>
                 <Label for ='Title'>Title</Label>
-                <Input type='text' name='title' value={this.state.title} onChange={this.handleChange}  placeholder={this.props.state.note.title} />
+                <Input type='text' name='title' value={this.state.title} onChange={this.handleChange}  placeholder={this.props.location.title} />
                 <Label for ='Body'>Body</Label>
-                <Input type='textarea' name='body' value={this.state.body} onChange={this.handleChange} placeholder={this.props.state.note.body} />
+                <Input type='textarea' name='body' value={this.state.body} onChange={this.handleChange} placeholder={this.props.location.body}/>
                 <Button onClick={this.handleUpdate}>Update Note</Button>
               </Form>
             </div>
         );
       }
     }
-  
-    const mapStateToProps = (state) => {
-      console.log(state)
-      return {
-        state: state,
-      }
-  
-    }
     
-    export default connect(mapStateToProps, { updateNote})(UpdateNote);
+    
+    export default connect(null, { updateNote})(UpdateNote);

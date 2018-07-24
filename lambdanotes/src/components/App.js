@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router, Route, Link, NavLink
 } from 'react-router-dom';
 import { Button, NavItem } from 'reactstrap';
+import { connect } from 'react-redux';
 
 import Notes from './Notes';
 import Note from './Note';
@@ -10,6 +11,7 @@ import CreateNote from './CreateNote';
 import UpdateNote  from './UpdateNote';
 import SignUp from './SignUp';
 import Login from './Login'
+import { getNotes } from '../actions'
 
 import '../css/App.css';
 
@@ -32,7 +34,7 @@ class App extends Component {
                 <Route exact path='/' component={ Notes }/>
                 <Route path='/notes/:id' component={ Note } />
                 <Route path='/create' component={ CreateNote } />
-                <Route exact path='/update/:id' component={ UpdateNote } />
+                <Route path='/update/:id' component={ UpdateNote } />
                 <Route path='/register' component={ SignUp } />
                 <Route path='/login' component={ Login } />
 
@@ -41,6 +43,9 @@ class App extends Component {
       </Router>
     );
   }
+      componentDidMount() {
+        this.props.getNotes();
+    }
 }
 
-export default App;
+export default connect(null, {getNotes})(App);
