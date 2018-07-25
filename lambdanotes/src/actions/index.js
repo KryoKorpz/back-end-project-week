@@ -10,6 +10,7 @@ export const LOADING = 'LOADING';
 export const HIDE_LOADING = 'HIDE_LOADING';
 export const SIGNUP = 'SIGNUP';
 export const LOGIN = 'LOGIN';
+export const GET_USERS = 'GET_USERS';
 
 const herokuURL = `https://fathomless-bastion-61109.herokuapp.com`;
 
@@ -83,18 +84,34 @@ export const signUp = (user) => {
 }
 export const login = (user) => {
     return (dispatch) => {
-        axios.post(`http://localhost:5000/users/login`, user)
+        axios.put(`http://localhost:5000/users/login`, user)
         .then((response) => {
+            const token = response.data.token
+            localStorage.setItem('token', token)
             dispatch({
                 type : LOGIN,
                 payload: response.data.user
             })
+
         })
         .catch((error) => {
             console.log(error)
         })
     }
 }
+
+export const getUsers = () => async dispatch => {
+    const token = localStorage.getItem('token')
+    try {
+        dispatch({ type: LOADING })
+        const {data} = await axios.get(`http://localhost:5000/users`, {headers: {Authorization: token}})
+        dispatch({ type: GET_USERS, payload: data })
+        dispatch({ type: HIDE_LOADING })
+    } catch (error) {
+        dispatch({ type: ERROR, error})
+    }
+}
+
 export const error = () => {
     return (dispatch) => {
         

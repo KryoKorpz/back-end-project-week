@@ -11,6 +11,7 @@ import CreateNote from './CreateNote';
 import UpdateNote  from './UpdateNote';
 import SignUp from './SignUp';
 import Login from './Login'
+import Users from './Users'
 import { getNotes } from '../actions'
 
 import '../css/App.css';
@@ -29,6 +30,7 @@ class App extends Component {
                 <NavLink to='/login'><Button color="primary" className='home-nav-link'>Login</Button></NavLink>
                 <NavLink to='/'><Button color="info" className='home-nav-link'>View Your Notes</Button></NavLink>
                 <NavLink to='/create'><Button color="info" className='home-nav-link'>+ Create New Note</Button></NavLink>
+                <NavLink to='/users'><Button color="info" className='home-nav-link'>Authorized Users</Button></NavLink>
               </div>
               <div className='content'>
                 <Route exact path='/' component={ Notes }/>
@@ -37,6 +39,7 @@ class App extends Component {
                 <Route path='/update/:id' component={ UpdateNote } />
                 <Route path='/register' component={ SignUp } />
                 <Route path='/login' component={ Login } />
+                <Route path='/users' component={ Users } />
 
               </div> 
         </div>

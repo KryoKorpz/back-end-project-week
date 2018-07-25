@@ -8,6 +8,7 @@ const serverError = 500;
 const notFound = 404;
 
 User = require('./User')
+const {makeToken, verifyToken} = require('./authMiddleware')
 
 router.post('/register', (req, res) => {
     const newUser = new User(req.body)
@@ -20,16 +21,17 @@ router.post('/register', (req, res) => {
     })
 })
 
-router.post('/login', (req,res) => {
+router.put('/login', (req,res) => {
     const { username, password } = req.body
     User.findOne({username}) 
     .then((user) => {
       user.validatePassword(password)
         .then((isMatch) => {
           if(isMatch) {
-            // const token = makeToken(user)
-            // res.status(200).json({user, token})
-            res.status(200).json({user})
+            const token = makeToken(user)
+            console.log(user)
+            console.log(token)
+            res.status(200).json({user, token})
           } else {
             res.sendStatus(401)
           }
@@ -42,6 +44,8 @@ router.post('/login', (req,res) => {
       res.status(500).json(error)
     })
   })
+
+
 // router.post('/login',  (req, res) => {
 //     user = req.body.username
 //     password = req.body.password
@@ -90,9 +94,10 @@ router.post('/login', (req,res) => {
 //                 })
 //     });
 // })
-router.get('/', (req, res) => {
+router.get('/', verifyToken, (req, res) => {
     User
     .find()
+    .select('-password')
     .then((users) => {
         res.status(success).json(users)
     })

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form, Label, Input, FormGroup } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import {login} from '../actions';
 import '../css/CreateNote.css';
@@ -25,6 +26,7 @@ class Login extends Component {
     event.preventDefault();
     this.props.login(this.state);
     this.setState({ username: '', password: ''});
+    this.props.history.push('/users');
   }
 
   render() {

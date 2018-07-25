@@ -3,27 +3,28 @@ import { connect } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom'
 import { Card, CardTitle, CardText, CardBody, Row, Col } from 'reactstrap';
 
+import { getUsers } from '../actions'
 
-import '../css/Notes.css';
+
+import '../css/\Notes.css';
 
 
-class Notes extends Component {
+class Users extends Component {
     render() {
         return (
             <div className="notes">
-                    {this.props.loading ?
-                        <h2> loading notes</h2>: null}
+                    { this.props.loading ?
+                        <h2> loading users</h2>: null}
                     <div style={{display:'flex', flexWrap:'wrap'}}>
                     <Row >
-                        {console.log(this.props.notes)}
-                        {this.props.notes.map((note) =>{
+                        {console.log(this.props.users)}
+                        {this.props.users.map((user) =>{
                             return(
                                 <Col xs='auto'>
-                                    <NavLink to={{pathname:`/notes/${note._id}`, title: note.title, body: note.body, id: note._id}} style={{textDecoration:'none', color:'black'}}>
+                                    <NavLink to={{pathname:`/users/${user._id}`, username: user.username, id: user._id}} style={{textDecoration:'none', color:'black'}}>
                                         <Card style={{display: 'flex'}}>
                                             <CardBody style={{border:'1px solid black'}} >
-                                                <CardTitle style={{display: 'flex', justifyContent:'center'}}>{note.title}</CardTitle>
-                                                <CardText style={{display:'flex', flexWrap:'wrap'}}>{note.body}</CardText>
+                                                <CardTitle style={{display: 'flex', justifyContent:'center'}}>{user.username}</CardTitle>
                                             </CardBody>
                                         </Card>
                                     </NavLink>
@@ -34,13 +35,17 @@ class Notes extends Component {
             </div>
       );
     }
+
+    componentDidMount() {
+        this.props.getUsers();
+    }
 }
     
     const mapStateToProps = (state) => {
         return {
-            notes:state.notes
+            users:state.users
         }
     }
     
-  export default connect(mapStateToProps, {})(Notes);
+  export default connect(mapStateToProps, {getUsers})(Users);
 
