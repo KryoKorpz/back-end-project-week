@@ -13,11 +13,12 @@ export const LOGIN = 'LOGIN';
 export const GET_USERS = 'GET_USERS';
 
 const herokuURL = `https://fathomless-bastion-61109.herokuapp.com`;
+const localURL = `http://localhost:5000`
 
 export const getNotes = () => async dispatch => {
     try {
         dispatch({ type: LOADING })
-        const {data} = await axios.get(`http://localhost:5000/notes`)
+        const {data} = await axios.get(`${herokuURL}/notes`)
         dispatch({ type: GET_NOTES, payload: data })
         dispatch({ type: HIDE_LOADING })
     } catch (error) {
@@ -27,7 +28,7 @@ export const getNotes = () => async dispatch => {
 
 export const createNote = (note) => {
     return (dispatch) => {
-        axios.post(`http://localhost:5000/notes`, note)
+        axios.post(`${herokuURL}/notes`, note)
         .then((response) => {
             dispatch({
                 type : CREATE_NOTE,
@@ -41,7 +42,7 @@ export const createNote = (note) => {
 }
 export const updateNote = (note, id) => {
     return (dispatch) => {
-        axios.put(`http://localhost:5000/notes/update/${id}`, note)
+        axios.put(`${herokuURL}/notes/update/${id}`, note)
         .then(() => {
             dispatch({
                 type : UPDATE_NOTE,
@@ -57,7 +58,7 @@ export const updateNote = (note, id) => {
 
 export const deleteNote = (id) => {
     return (dispatch) => {
-        axios.delete(`http://localhost:5000/notes/delete/${id}`)
+        axios.delete(`${herokuURL}/notes/delete/${id}`)
         .then((response) => {
             dispatch({
                 type : DELETE_NOTE,
@@ -70,7 +71,7 @@ export const deleteNote = (id) => {
 }
 export const signUp = (user) => {
     return (dispatch) => {
-        axios.post(`http://localhost:5000/users/register`, user)
+        axios.post(`${herokuURL}/users/register`, user)
         .then((response) => {
             dispatch({
                 type : SIGNUP,
@@ -84,7 +85,7 @@ export const signUp = (user) => {
 }
 export const login = (user) => {
     return (dispatch) => {
-        axios.put(`http://localhost:5000/users/login`, user)
+        axios.put(`${herokuURL}/users/login`, user)
         .then((response) => {
             const token = response.data.token
             localStorage.setItem('token', token)
@@ -104,7 +105,7 @@ export const getUsers = () => async dispatch => {
     const token = localStorage.getItem('token')
     try {
         dispatch({ type: LOADING })
-        const {data} = await axios.get(`http://localhost:5000/users`, {headers: {Authorization: token}})
+        const {data} = await axios.get(`${herokuURL}/users`, {headers: {Authorization: token}})
         dispatch({ type: GET_USERS, payload: data })
         dispatch({ type: HIDE_LOADING })
     } catch (error) {
