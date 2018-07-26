@@ -6,5 +6,5 @@ module.exports = function(server) {
         res.status(200).json('Hi World, Im here')
     })
     server.use('/notes', noteRoutes);
-    server.use('/users', userRoutes);
+    server.use('/user', userRoutes);
     };

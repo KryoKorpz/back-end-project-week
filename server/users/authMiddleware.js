@@ -6,7 +6,10 @@ const makeToken = (user) => {
         sub: user._id,
         name: user.username
     }
-    return jwt.sign(payload, secret)
+    const options = {
+        expiresIn: '1hr'
+    }
+    return jwt.sign(payload, secret, options)
 }
 
 const verifyToken = (req, res, next) => {

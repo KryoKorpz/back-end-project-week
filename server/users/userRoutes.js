@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt')
+const ObjectId = require('mongodb').ObjectID
+
 
 const success = 200;
 const created = 201;
@@ -94,15 +96,16 @@ router.put('/login', (req,res) => {
 //                 })
 //     });
 // })
-router.get('/', verifyToken, (req, res) => {
+router.get('/:id', verifyToken, (req, res) => {
+    const id = req.params.id
     User
-    .find()
+    .findById(ObjectId(id))
     .select('-password')
-    .then((users) => {
-        res.status(success).json(users)
+    .then((user) => {
+        res.status(success).json(user)
     })
     .catch((error) => {
-        res.status(serverError).json(users)
+        res.status(serverError).json(error)
     })
 })
 
