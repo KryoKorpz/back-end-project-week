@@ -44,6 +44,7 @@ router.get('/:id', (req, res) => {
 
 router.delete('/delete/:id', (req, res) => {
     const id = req.params.id
+    console.log
     Note
     .findByIdAndDelete(ObjectId(id))
     .then(() => {
